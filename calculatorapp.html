@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic Calculator</title>
+  <style>
+    body {
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #calculator {
+      background: black;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    #keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 20px;
+      background: #444;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .operator {
+      background: orange;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="calculator">
+    <div id="keys">
+      <button onclick="setNumber(7)">7</button>
+      <button onclick="setNumber(8)">8</button>
+      <button onclick="setNumber(9)">9</button>
+      <button class="operator" onclick="setOperator('/')">÷</button>
+
+      <button onclick="setNumber(4)">4</button>
+      <button onclick="setNumber(5)">5</button>
+      <button onclick="setNumber(6)">6</button>
+      <button class="operator" onclick="setOperator('*')">×</button>
+
+      <button onclick="setNumber(1)">1</button>
+      <button onclick="setNumber(2)">2</button>
+      <button onclick="setNumber(3)">3</button>
+      <button class="operator" onclick="setOperator('-')">−</button>
+
+      <button onclick="setNumber(0)">0</button>
+      <button onclick="calculate()">=</button>
+      <button class="operator" onclick="setOperator('+')">+</button>
+      <button onclick="clearCalc()">AC</button>
+    </div>
+  </div>
+
+  <script>
+    let num1 = null;
+    let num2 = null;
+    let operator = null;
+
+    function setNumber(n) {
+      if (operator === null) {
+        num1 = num1 === null ? n : num1 * 10 + n;
+        console.log("First number:", num1);
+      } else {
+        num2 = num2 === null ? n : num2 * 10 + n;
+        console.log("Second number:", num2);
+      }
+    }
+
+    function setOperator(op) {
+      if (num1 !== null) {
+        operator = op;
+        console.log("Operator:", operator);
+      }
+    }
+
+    function calculate() {
+      if (num1 !== null && num2 !== null && operator !== null) {
+        let result = 0;
+        if (operator === '+') result = num1 + num2;
+        if (operator === '-') result = num1 - num2;
+        if (operator === '*') result = num1 * num2;
+        if (operator === '/') result = num1 / num2;
+        console.log("Result:", result);
+
+        // Reset
+        num1 = result;
+        num2 = null;
+        operator = null;
+      } else {
+        console.log("Enter both numbers and an operator.");
+      }
+    }
+
+    function clearCalc() {
+      num1 = null;
+      num2 = null;
+      operator = null;
+      console.clear();
+      console.log("Calculator cleared.");
+    }
+  </script>
+
+</body>
+</html>
